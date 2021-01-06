@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Task {
+  id    Int     @id @default(autoincrement())
+  label String
+  done  Boolean @default(false)
+}
+
+model Group {
+  id        Int      @id @default(autoincrement())
+  isRoot    Boolean  @default(false)
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ancestorPaths   GroupTreePath[] @relation("GroupDescendantRelation")
+  descendantPaths GroupTreePath[] @relation("GroupAncestorRelation")
+}
+
+// Tree Structure of Groups.
+model GroupTreePath {
+  ancestorId   Int
+  descendantId Int
+  pathLength   Int
+  ancestor     Group @relation("GroupAncestorRelation", fields: [ancestorId], references: [id])
+  descendant   Group @relation("GroupDescendantRelation", fields: [descendantId], references: [id])
+
+  @@id([descendantId, pathLength])
+}
