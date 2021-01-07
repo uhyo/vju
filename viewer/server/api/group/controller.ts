@@ -1,5 +1,9 @@
-import { defineController } from './$relay'
+import { getWholeTree } from "$/service/groups";
+import { defineController } from "./$relay";
 
-export default defineController(() => ({
-  get: () => ({ status: 200, body: 'Hello' })
-}))
+export default defineController({ getWholeTree }, ({ getWholeTree }) => ({
+  get: async () => {
+    const result = await getWholeTree();
+    return { status: 200, body: result };
+  },
+}));

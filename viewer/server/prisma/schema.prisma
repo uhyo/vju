@@ -33,4 +33,5 @@ model GroupTreePath {
   descendant   Group @relation("GroupDescendantRelation", fields: [descendantId], references: [id])
 
   @@id([descendantId, pathLength])
+  @@index([pathLength, ancestorId])
 }
