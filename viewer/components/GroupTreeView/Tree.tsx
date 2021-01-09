@@ -1,5 +1,6 @@
 import { castella, css, html, slot } from "@castella/macro";
 import { Group } from "@prisma/client";
+import Link from "next/link";
 import { Icon } from "../Icon";
 import { TreeNode } from "./logic/groupTree";
 import {
@@ -25,7 +26,7 @@ export const Tree: React.VFC<Props> = ({ groups, node }) => {
           {isClosed ? <Icon.ClosedFolder /> : <Icon.OpenFolder />}
         </button>
       }
-      name={group?.name}
+      name={group ? <Link href={`/group/${group.id}`}>{group.name}</Link> : "-"}
     >
       {!isClosed && node.children.length > 0 ? (
         <ul>
