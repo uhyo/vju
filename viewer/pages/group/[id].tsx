@@ -1,6 +1,8 @@
+import { Group } from "@prisma/client";
 import { GetServerSideProps } from "next";
+import { apiClient } from "~/utils/apiClient";
 type ServerSideProps = {
-  id: number;
+  group: Group;
 };
 
 export const getServerSideProps: GetServerSideProps<ServerSideProps> = async (
@@ -13,14 +15,16 @@ export const getServerSideProps: GetServerSideProps<ServerSideProps> = async (
     };
   }
 
+  const groupRes = await apiClient.group._groupId(id).get();
+
   return {
     props: {
-      id,
+      group: groupRes.body.group,
     },
   };
 };
 
-const GroupPage: React.VFC<ServerSideProps> = ({ id }) => {
-  return <p>Group {id}</p>;
+const GroupPage: React.VFC<ServerSideProps> = ({ group }) => {
+  return <p>Group {group.name}</p>;
 };
 export default GroupPage;

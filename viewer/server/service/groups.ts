@@ -39,3 +39,15 @@ export const getWholeTree = depend({ prisma }, async ({ prisma }) => {
     groups,
   };
 });
+
+export const getOneGroup = depend(
+  { prisma },
+  async ({ prisma }, groupId: number) => {
+    const group = await prisma.group.findUnique({
+      where: {
+        id: groupId,
+      },
+    });
+    return group;
+  }
+);
