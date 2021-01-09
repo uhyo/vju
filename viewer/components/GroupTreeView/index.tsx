@@ -10,7 +10,7 @@ export const GroupTreeView: React.VFC = () => {
     call();
   }, [call]);
 
-  const tree = useMemo(
+  const treeRes = useMemo(
     () =>
       res.map((data) => {
         return constructTree(data.body);
@@ -18,13 +18,17 @@ export const GroupTreeView: React.VFC = () => {
     [res]
   );
 
-  if (!tree.response) {
+  if (!treeRes.response) {
     return null;
   }
 
+  const tree = treeRes.response;
+
   return (
     <div>
-      <Tree groups={tree.response.groups} node={tree.response.rootNode} />
+      {tree.rootNode.children.map((node) => (
+        <Tree key={node.id} groups={tree.groups} node={node} />
+      ))}
     </div>
   );
 };

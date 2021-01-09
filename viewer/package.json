@@ -27,11 +27,15 @@
     "@aspida/swr": "^1.1.1",
     "@castella/macro": "^1.1.0",
     "@castella/runtime": "^1.1.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@prisma/client": "^2.14.0",
     "class-validator": "^0.12.2",
     "next": "^10.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "recoil": "^0.1.2",
     "swr": "^0.3.11"
   },
   "devDependencies": {
