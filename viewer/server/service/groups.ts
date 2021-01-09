@@ -12,12 +12,23 @@ export const getWholeTree = depend({ prisma }, async ({ prisma }) => {
       descendant: true,
     },
   });
+  const rootGroup = await prisma.group.findFirst({
+    where: {
+      isRoot: true,
+    },
+  });
+  if (rootGroup === null) {
+    throw new Error("Root group could not be found");
+  }
+
   // split into paths and groups
   const paths: {
     ancestorId: number;
     descendantId: number;
   }[] = [];
-  const groups: Record<number, Group> = {};
+  const groups: Record<number, Group> = {
+    [rootGroup.id]: rootGroup,
+  };
 
   for (const { descendant, ...path } of directChildPaths) {
     paths.push(path);
