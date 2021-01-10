@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,4 +28,14 @@ model GroupTreePath {
 
   @@id([descendantId, pathLength])
   @@index([pathLength, ancestorId])
+}
+
+// One item in the gallery.
+model Item {
+  id   String   @id @default(cuid())
+  type ItemType
+}
+
+enum ItemType {
+  ITEM
 }
